@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -53,7 +53,7 @@ export default function AdminPage() {
     return null
   }
 
-  const handleSearch = async (e) => {
+  const handleSearch = async (e: FormEvent) => {
     e.preventDefault()
     try {
       const response = await fetch('/api/admin/search-user', {
@@ -77,6 +77,7 @@ export default function AdminPage() {
         setUserId(null)
       }
     } catch (error) {
+      console.error(error);
       setMessage('Error de conexión')
       setUserEmail('')
       setUserId(null)
@@ -85,7 +86,7 @@ export default function AdminPage() {
     setSearchQuery('')
   }
 
-  const handleWeightChange = (material, value) => {
+  const handleWeightChange = (material: string, value: string) => {
     if (/^\d*\.?\d*$/.test(value) || value === '') {
       setWeights(prevWeights => ({
         ...prevWeights,
@@ -110,7 +111,7 @@ export default function AdminPage() {
 
     const totalPoints = calculatePoints()
     const validWeights = Object.fromEntries(
-      Object.entries(weights).filter(([_, weight]) => !isNaN(parseFloat(weight)) && parseFloat(weight) > 0)
+      Object.entries(weights).filter(([ , weight]) => !isNaN(parseFloat(weight)) && parseFloat(weight) > 0)
     )
 
     try {
@@ -142,6 +143,7 @@ export default function AdminPage() {
         setMessage(data.message || 'Error al agregar puntos')
       }
     } catch (error) {
+      console.log(error);
       setMessage('Error de conexión')
     }
   }
