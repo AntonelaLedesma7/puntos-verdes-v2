@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect, FormEvent } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { useState, useEffect, FormEvent, ComponentType } from 'react';
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { Button, buttonVariants } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+
 
 import MetalIcon from '/public/icons/metal.svg';
 import GlassIcon from '/public/icons/glass.svg';
@@ -53,8 +54,9 @@ export default function AdminPage() {
     return null;
   }
 
-  const handleSearch = async (e: FormEvent) => {
-    e.preventDefault()
+
+  const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       const response = await fetch('/api/admin/search-user', {
         method: 'POST',
@@ -85,10 +87,21 @@ export default function AdminPage() {
 
     setSearchQuery('');
   };
+<<<<<<< HEAD
 
-  const handleWeightChange = (material: string, value: string) => {
+  const handleWeightChange = (material, value) => {
     if (/^\d*\.?\d*$/.test(value) || value === '') {
       setWeights((prevWeights) => ({
+=======
+  type HandleWeightChange = {
+    material:string
+    value: string
+  }
+  const handleWeightChange = (WeightChange:HandleWeightChange): void => {
+    const { material, value } = WeightChange;
+    if (/^\d*\.?\d*$/.test(value) || value === '') {
+      setWeights((prevWeights: HandleWeightChange) => ({
+>>>>>>> dcfbc91 (tipado 0.1)
         ...prevWeights,
         [material]: value,
       }));
@@ -146,18 +159,25 @@ export default function AdminPage() {
         setMessage(data.message || 'Error al agregar puntos');
       }
     } catch (error) {
-      console.log(error);
-      setMessage('Error de conexión')
+      setMessage('Error de conexión');
     }
   };
 
-  const materials = [
-    { icon: BoxIcon, label: 'Cartón', key: 'cardboard' },
-    { icon: GlassIcon, label: 'Vidrio', key: 'glass' },
-    { icon: PaperIcon, label: 'Papel', key: 'paper' },
-    { icon: MetalIcon, label: 'Metal', key: 'metal' },
-    { icon: PlasticIcon, label: 'Plástico', key: 'plastic' },
-  ];
+
+    type typeMaterials = {
+      icon: ComponentType<{ className?: string }>;
+      label: string;
+      key: string;
+    };
+  
+
+  const materials: typeMaterials[] = [
+    { icon: BoxIcon, label: "Cartón", key: "cardboard" },
+    { icon: GlassIcon, label: "Vidrio", key: "glass" },
+    { icon: PaperIcon, label: "Papel", key: "paper" },
+    { icon: MetalIcon, label: "Metal", key: "metal" },
+    { icon: PlasticIcon, label: "Plástico", key: "plastic" }
+  ]
 
   return (
     <div className='container mx-auto max-w-[600px] px-4 my-8 grid gap-4 text-white min-h-screen'>
@@ -187,24 +207,21 @@ export default function AdminPage() {
 
       {userEmail && <p className='mb-4'>Usuario seleccionado: {userEmail}</p>}
 
-      <div className='grid mt-8 gap-9'>
-        {materials.map((material, index) => (
-          <div key={index} className='flex justify-between'>
-            <material.icon className='w-10 h-10 text-[--color-primary]' />
-            <label htmlFor={`option-${index + 1}`} className='text-lg'>
-              {material.label}
-            </label>
-            <div className='flex flex-col items-end'>
-              <div className='flex items-center'>
+    <div className="grid mt-8 gap-9">
+        {materials.map((material, index:number) => (
+          <div key={index} className="flex justify-between">
+            <material.icon className="w-10 h-10 text-[--color-primary]" />
+            <label htmlFor={`option-${index + 1}`} className="text-lg">{material.label}</label>
+            <div className="flex flex-col items-end">
+              <div className="flex items-center">
+
                 <Input
                   type='text'
                   id={`option-${index + 1}`}
                   placeholder='Peso (kg)'
                   className='w-[120px] bg-[--color-secundary] text-white rounded-lg pb-2 mr-5'
                   value={weights[material.key]}
-                  onChange={(e) =>
-                    handleWeightChange(material.key, e.target.value)
-                  }
+                  onChange={(e:string) => handleWeightChange({material:material.key, value:e.target.value})}
                 />
                 <span className='text-sm'>
                   ({POINTS_PER_KILO[material.key]} pts/kg)
