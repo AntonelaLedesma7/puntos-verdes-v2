@@ -1,0 +1,195 @@
+/* Estilos del contenedor del reciclaje */
+.recycleContainer {
+    position: fixed; 
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    height: 70%; 
+    max-height: 80%;
+    z-index: 1000; 
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden; /* Evitar desbordamiento */
+}
+
+/* Medidas responsivas */
+@media (min-width: 768px) {
+    .recycleContainer {
+        width: 60%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .recycleContainer {
+        width: 43%;
+    }
+}
+
+/* Estilos del contenedor de chat */
+.chatContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre mensajes */
+    overflow-y: auto;
+    flex-grow: 1; /* Permitir que el contenedor crezca */
+    margin-bottom: 10px;
+}
+
+/* Estilos de los mensajes */
+.message {
+    max-width: 70%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 15px;
+    word-wrap: break-word;
+    display: inline-block;
+    font-size: 14px;
+}
+
+/* Estilos para mensajes del usuario */
+.userMessage {
+    background-color: #4caf50; /* Color de fondo para los mensajes del usuario */
+    color: white;
+    align-self: flex-end; /* Alineación a la derecha */
+    border-bottom-right-radius: 0; /* Diferenciar el borde */
+}
+
+/* Estilos para mensajes del bot */
+.botMessage {
+    background-color: #666; /* Color de fondo para los mensajes del chatbot */
+    color: white;
+    align-self: flex-start; /* Alineación a la izquierda */
+    border-bottom-left-radius: 0; /* Diferenciar el borde */
+}
+
+/* Estilos de entrada de chat */
+.chatInput {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #030303;
+    color: white;
+    margin-bottom: 10px;
+    resize: none;
+    height: 70px;
+}
+
+/* Estilos del contenedor de botones */
+.buttonContainer {
+    display: flex;  
+    justify-content: flex-end;  
+    gap: 10px;                
+    margin-top: auto; /* Asegurar que los botones se mantengan en la parte inferior */
+}
+
+/* Estilos de los botones */
+.sendButton, .closeButton {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100px;
+}
+
+.sendButton {
+    background-color: #4caf50;
+    color: white;
+}
+
+.closeButton {
+    background-color: #ca5849;
+    color: white;
+}
+
+.sendButton:hover {
+    background-color: #45a049;
+}
+
+.closeButton:hover {
+    background-color: #b3473e;
+}
+
+/* Estilos de la superposición */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    z-index: 999; 
+}
+
+/* Estilos de preguntas predefinidas */
+.predefinedQuestions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    background-color: #444;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.questionButton {
+    background-color: #666;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex: 1 1 calc(50% - 10px); /* Ajustar flexibilidad de botones */
+    text-align: center;
+}
+
+.questionButton:hover {
+    background-color: #555;
+}
+
+/* Medidas responsivas para botones de preguntas predefinidas */
+@media (max-width: 768px) {
+    .questionButton {
+        flex: 1 1 100%;
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .predefinedQuestions {
+        padding: 10px;
+    }
+
+    .questionButton {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+
+/* Mejora de estilos para hacerlos más responsive */
+@media (max-width: 600px) {
+    .message {
+        font-size: 12px; /* Disminuir tamaño de fuente para móviles */
+    }
+
+    .chatInput {
+        height: 50px; /* Ajustar altura del input en pantallas pequeñas */
+    }
+
+    .sendButton, .closeButton {
+        width: 80px; /* Ajustar tamaño de botones en móviles */
+    }
+}

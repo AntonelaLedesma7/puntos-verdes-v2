@@ -1,0 +1,45 @@
+
+.nav {
+    background-color: var(--color-secundary);
+    padding: 1.3em 0;
+    display: flex;
+    justify-content: center; /* Centramos el nav */
+    align-items: center;
+    border-radius: 60px; /* Añadimos border-radius */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destacar el nav */
+
+    /* max-width: 90%;
+    margin: 20px auto; */
+}
+  
+  .navList {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navItem {
+    text-align: center; /* Centrado de los íconos y textos */
+  }
+  
+  .navLink {
+    text-decoration: none;
+    color: var(--color-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: color 0.3s ease;
+  }
+  
+  .navLink:hover {
+    color: var(--color-primary); /* Color de hover */
+  }
+  
+  .navIcon {
+    width: 24px; /* Ajusta el tamaño del icono según sea necesario */
+    height: 24px;
+    margin-bottom: 5px;
+    color: inherit;
+  }
