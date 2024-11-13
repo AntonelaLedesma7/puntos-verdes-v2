@@ -1,8 +1,11 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
-
-const Input = (({ className, type, ...props }) => {
+interface InputProps {
+  className: string;
+  type: string;
+}
+const Input = (({ className, type, ...props }: InputProps) => {
   return (
     (<input
       type={type}

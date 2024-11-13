@@ -1,3 +1,5 @@
+'use client'
+
 'use client';
 
 import { useState, useEffect, FormEvent, ComponentType } from 'react';
@@ -87,12 +89,6 @@ export default function AdminPage() {
 
     setSearchQuery('');
   };
-<<<<<<< HEAD
-
-  const handleWeightChange = (material, value) => {
-    if (/^\d*\.?\d*$/.test(value) || value === '') {
-      setWeights((prevWeights) => ({
-=======
   type HandleWeightChange = {
     material:string
     value: string
@@ -101,7 +97,6 @@ export default function AdminPage() {
     const { material, value } = WeightChange;
     if (/^\d*\.?\d*$/.test(value) || value === '') {
       setWeights((prevWeights: HandleWeightChange) => ({
->>>>>>> dcfbc91 (tipado 0.1)
         ...prevWeights,
         [material]: value,
       }));
@@ -161,6 +156,8 @@ export default function AdminPage() {
     } catch (error) {
       setMessage('Error de conexión');
     }
+  }
+
   };
 
 
@@ -205,8 +202,9 @@ export default function AdminPage() {
 
       {message && <p className='mb-4 text-yellow-400'>{message}</p>}
 
-      {userEmail && <p className='mb-4'>Usuario seleccionado: {userEmail}</p>}
+      {userEmail && <p className="mb-4">Usuario seleccionado: {userEmail}</p>}
 
+      <div className="grid mt-8 gap-9">
     <div className="grid mt-8 gap-9">
         {materials.map((material, index:number) => (
           <div key={index} className="flex justify-between">
