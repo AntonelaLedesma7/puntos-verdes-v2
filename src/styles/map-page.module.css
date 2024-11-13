@@ -1,0 +1,22 @@
+.searchBar {
+    display: flex;
+    align-items: center;
+    background-color: #222;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+  }
+  
+  .searchBar input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #fff;
+    outline: none;
+  }
+
+  .mapContainer {
+    position: relative;
+    height: 100vh; /* Altura del 100% de la ventana */
+    width: 100vw; /* Ancho del 100% de la ventana */
+  }
