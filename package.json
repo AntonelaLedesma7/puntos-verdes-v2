@@ -16,7 +16,8 @@
     "puntos-verdes-v2": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tailwind-merge": "^2.5.4"
+    "tailwind-merge": "^2.5.4",
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@radix-ui/themes": "^3.1.6",
