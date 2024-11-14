@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware';
 interface Reward {
   discount: string;
   category: string;
-  discountCode: string;
+  /*   discountCode: string; */
   expiration: string;
 }
 
@@ -33,7 +33,7 @@ const useRewardStore = create<RewardStore>()(
           return;
         }
         const response = await fetch(`/api/points/${userId}`);
-        console.log("Response points", response);
+        console.log('Response points', response);
         const data = await response.json();
         set({ userPoints: data });
       },
@@ -52,7 +52,7 @@ const useRewardStore = create<RewardStore>()(
           set({ userPoints: data });
           return data;
         } catch (error) {
-          console.log("Error al actualizar los puntos", error);
+          console.log('Error al actualizar los puntos', error);
           return null;
         }
       },
@@ -61,28 +61,32 @@ const useRewardStore = create<RewardStore>()(
       userPoints: null,
       selectedReward: null,
       redeemedRewards: [],
-      setSelectedReward: (reward: Reward | null) => set({ selectedReward: reward }),
-      updateAfterRedemption: (newPoints: number, newReward: Reward) => set((state) => ({
-        userPoints: newPoints,
-        redeemedRewards: [...state.redeemedRewards, newReward],
-      })),
+      setSelectedReward: (reward: Reward | null) =>
+        set({ selectedReward: reward }),
+      updateAfterRedemption: (newPoints: number, newReward: Reward) =>
+        set((state) => ({
+          userPoints: newPoints,
+          redeemedRewards: [...state.redeemedRewards, newReward],
+        })),
     }),
     {
-        name: 'reward-storage', // Nombre del almacenamiento persistente
-        storage: {
-          getItem: (name: string) => {
-            const item = localStorage.getItem(name);
-            return item ? Promise.resolve(JSON.parse(item)) : Promise.resolve(null);
-          },
-          setItem: (name: string, value: unknown) => {
-            // Aseguramos que `value` sea serializable
-            localStorage.setItem(name, JSON.stringify(value));
-            return Promise.resolve();
-          },
-          removeItem: (name: string) => {
-            localStorage.removeItem(name);
-            return Promise.resolve();
-          },
+      name: 'reward-storage', // Nombre del almacenamiento persistente
+      storage: {
+        getItem: (name: string) => {
+          const item = localStorage.getItem(name);
+          return item
+            ? Promise.resolve(JSON.parse(item))
+            : Promise.resolve(null);
+        },
+        setItem: (name: string, value: unknown) => {
+          // Aseguramos que `value` sea serializable
+          localStorage.setItem(name, JSON.stringify(value));
+          return Promise.resolve();
+        },
+        removeItem: (name: string) => {
+          localStorage.removeItem(name);
+          return Promise.resolve();
+        },
       }, // Usamos una implementación personalizada para que sea compatible con PersistStorage
     }
   )
