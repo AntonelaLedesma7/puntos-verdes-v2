@@ -13,6 +13,7 @@
     "cookies-next": "^5.0.2",
     "next": "15.0.3",
     "next-auth": "^4.24.10",
+    "puntos-verdes-v2": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.5.4"

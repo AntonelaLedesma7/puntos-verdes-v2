@@ -56,7 +56,6 @@ export default function AdminPage() {
     return null;
   }
 
-
   const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -82,21 +81,17 @@ export default function AdminPage() {
       }
     } catch (error) {
       console.error(error);
-      setMessage('Error de conexión')
-      setUserEmail('')
-      setUserId(null)
+      setMessage('Error de conexión');
+      setUserEmail('');
+      setUserId(null);
     }
 
     setSearchQuery('');
   };
-  type HandleWeightChange = {
-    material:string
-    value: string
-  }
-  const handleWeightChange = (WeightChange:HandleWeightChange): void => {
-    const { material, value } = WeightChange;
+
+  const handleWeightChange = (material: string, value: string): void => {
     if (/^\d*\.?\d*$/.test(value) || value === '') {
-      setWeights((prevWeights: HandleWeightChange) => ({
+      setWeights((prevWeights) => ({
         ...prevWeights,
         [material]: value,
       }));
@@ -122,8 +117,10 @@ export default function AdminPage() {
 
     const totalPoints = calculatePoints();
     const validWeights = Object.fromEntries(
-      Object.entries(weights).filter(([ , weight]) => !isNaN(parseFloat(weight)) && parseFloat(weight) > 0)
-    )
+      Object.entries(weights).filter(
+        ([, weight]) => !isNaN(parseFloat(weight)) && parseFloat(weight) > 0
+      )
+    );
 
     try {
       const response = await fetch('/api/admin/add-points', {
@@ -154,33 +151,28 @@ export default function AdminPage() {
         setMessage(data.message || 'Error al agregar puntos');
       }
     } catch (error) {
+      console.log(error);
       setMessage('Error de conexión');
     }
-  }
-
   };
 
-
-    type typeMaterials = {
-      icon: ComponentType<{ className?: string }>;
-      label: string;
-      key: string;
-    };
-  
+  type typeMaterials = {
+    icon: ComponentType<{ className?: string }>;
+    label: string;
+    key: string;
+  };
 
   const materials: typeMaterials[] = [
-    { icon: BoxIcon, label: "Cartón", key: "cardboard" },
-    { icon: GlassIcon, label: "Vidrio", key: "glass" },
-    { icon: PaperIcon, label: "Papel", key: "paper" },
-    { icon: MetalIcon, label: "Metal", key: "metal" },
-    { icon: PlasticIcon, label: "Plástico", key: "plastic" }
-  ]
+    { icon: BoxIcon, label: 'Cartón', key: 'cardboard' },
+    { icon: GlassIcon, label: 'Vidrio', key: 'glass' },
+    { icon: PaperIcon, label: 'Papel', key: 'paper' },
+    { icon: MetalIcon, label: 'Metal', key: 'metal' },
+    { icon: PlasticIcon, label: 'Plástico', key: 'plastic' },
+  ];
 
   return (
     <div className='container mx-auto max-w-[600px] px-4 my-8 grid gap-4 text-white min-h-screen'>
-      <h1 className='mb-4 text-3xl font-bold text-center'>
-        Administrador de puntos
-      </h1>
+      <h1 className='mb-4 text-3xl font-bold text-center'>Administrador de puntos</h1>
 
       <form onSubmit={handleSearch} className='mt-6'>
         <h1 className='mb-4 text-1xl'>
@@ -201,25 +193,26 @@ export default function AdminPage() {
       </form>
 
       {message && <p className='mb-4 text-yellow-400'>{message}</p>}
+      {userEmail && <p className='mb-4'>Usuario seleccionado: {userEmail}</p>}
 
-      {userEmail && <p className="mb-4">Usuario seleccionado: {userEmail}</p>}
-
-      <div className="grid mt-8 gap-9">
-    <div className="grid mt-8 gap-9">
-        {materials.map((material, index:number) => (
-          <div key={index} className="flex justify-between">
-            <material.icon className="w-10 h-10 text-[--color-primary]" />
-            <label htmlFor={`option-${index + 1}`} className="text-lg">{material.label}</label>
-            <div className="flex flex-col items-end">
-              <div className="flex items-center">
-
+      <div className='grid mt-8 gap-9'>
+        {materials.map((material, index: number) => (
+          <div key={index} className='flex justify-between'>
+            <material.icon className='w-10 h-10 text-[--color-primary]' />
+            <label htmlFor={`option-${index + 1}`} className='text-lg'>
+              {material.label}
+            </label>
+            <div className='flex flex-col items-end'>
+              <div className='flex items-center'>
                 <Input
                   type='text'
                   id={`option-${index + 1}`}
                   placeholder='Peso (kg)'
                   className='w-[120px] bg-[--color-secundary] text-white rounded-lg pb-2 mr-5'
                   value={weights[material.key]}
-                  onChange={(e:string) => handleWeightChange({material:material.key, value:e.target.value})}
+                  onChange={(e) =>
+                    handleWeightChange(material.key, e.target.value)
+                  }
                 />
                 <span className='text-sm'>
                   ({POINTS_PER_KILO[material.key]} pts/kg)
@@ -263,7 +256,7 @@ export default function AdminPage() {
         <Link
           href='../'
           className={buttonVariants({
-            variant: 'primary',
+            variant: 'default',
             size: 'lg',
             className: 'font-bold bg-red-600 mt-8',
           })}
