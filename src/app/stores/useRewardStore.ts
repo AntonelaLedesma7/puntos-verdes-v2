@@ -1,3 +1,4 @@
+import { CookieValueTypes } from 'cookies-next';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -13,13 +14,13 @@ interface PointsResponse {
 }
 
 interface RewardStore {
-  userId: string | null;
+  userId: CookieValueTypes | Promise<CookieValueTypes>
   userPoints: number | null;
   selectedReward: Reward | null;
   redeemedRewards: Reward[];
   getPoints: () => Promise<void>;
   setPoints: (points: number) => Promise<PointsResponse | null>;
-  setUserId: (userId: string) => void;
+  setUserId: (userId: CookieValueTypes | Promise<CookieValueTypes>) => void;
   setSelectedReward: (reward: Reward | null) => void;
   updateAfterRedemption: (newPoints: number, newReward: Reward) => void;
 }
@@ -56,8 +57,8 @@ const useRewardStore = create<RewardStore>()(
           return null;
         }
       },
-      setUserId: (userId: string) => set({ userId }),
-      userId: null,
+      setUserId: (userId) => set({ userId }),
+      userId: undefined,
       userPoints: null,
       selectedReward: null,
       redeemedRewards: [],
