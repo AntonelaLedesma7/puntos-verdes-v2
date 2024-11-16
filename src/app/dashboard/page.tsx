@@ -11,13 +11,6 @@ import { buttonVariants } from '@/components/ui/button';
 import { UserIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 
-interface Reward {
-  discount: string;
-  category: string;
-  discountCode: string;
-  expiration: string;
-}
-
 const Dashboard = () => {
   const { status } = useSession();
   const { userPoints, redeemedRewards, getPoints } = useRewardStore();
@@ -76,7 +69,7 @@ const Dashboard = () => {
         <ManualIcon className="w-24 h-24 text-[--color-primary]"/>
         <div className='flex flex-col justify-center'>
           <h2 className="text-2xl font-semibold">Manual de reciclaje</h2>
-          <p className="mt-4 text-lg">Aprende la manera correcta de reciclar tus materiales</p>          
+          <p className="mt-4 text-lg">Aprende la manera correcta de reciclar tus materiales</p>
         </div>
       </Link>
 
@@ -87,7 +80,7 @@ const Dashboard = () => {
           <p className="text-center">Aún no has canjeado ningún beneficio.</p>
         ) : (
           <div className="grid gap-6 mt-8 md:grid-cols-2">
-            {redeemedRewards.slice(0, 2).map((reward: Reward, index: number) => (
+            {redeemedRewards.slice(0, 2).map((reward, index: number) => (
               <div key={index} className="p-4 bg-gray-800 rounded-lg shadow-md">
                 <TicketIcon className="w-12 h-12 text-[--color-primary]"/>
                 <p className="text-xl">{reward.discount} en {reward.category}</p>
