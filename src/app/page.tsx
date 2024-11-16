@@ -1,101 +1,103 @@
+'use client'
+
 import Image from "next/image";
+import styles from '@/styles/hero-section.module.css';
+import Footer from "@/components/footer";
+import Navbar from "@/components/navbar-landing";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  return (
+    <>
+      <Navbar/>
+      <main className={styles.main}>
+        <section className={styles.hero}>
+          <article className={styles.article}>
+            <h1 className={styles.h1}>Reciclaje</h1>
+              <p>Hace que reciclar sea fácil y gratificante. Regístrate, recicla y gana puntos que luego puedes canjear por increíbles recompensas. “Es así de simple”</p>
+              <a href="./auth/login"><button className="hover:bg-[--color-hover]">Únete ahora</button></a>
+          </article>
+          <div>
+            <Image src="/assets/header.webp" alt="hero" width={700} height={500} className="hidden md:block"/>      
+          </div>
+        </section>
+
+        {/* De qué trata la app */}
+        <section id="app-overview" className={styles.appOverview}>
+          <article>
+            <h2 className={styles.heading}>De qué trata la app</h2>
+            <p className={styles.paragraph}>
+              Nuestra aplicación de reciclaje está diseñada para hacer que el reciclaje sea más fácil, 
+              conveniente y gratificante para todos. Registra tus materiales reciclados, gana puntos y canjea 
+              recompensas exclusivas, todo desde la palma de tu mano.
+            </p>
+          </article>
+        </section>
+
+        {/* Beneficios del reciclaje */}
+        <section className={styles.recyclingBenefits}>
+          <div>
+            <Image 
+              src="/assets/benefits.webp" // Ruta para la imagen en la carpeta `public/assets`
+              alt="benefits"
+              width={240} // Puedes ajustar el tamaño
+              height={240}
+              className={styles.img}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+          </div>
+          <article>
+            <h2 className={styles.heading}>Beneficios del Reciclaje</h2>
+            <p className={styles.paragraph}>
+              El reciclaje es una forma poderosa de proteger nuestro planeta y construir un futuro más sostenible. Al reciclar, contribuyes a la conservación de recursos naturales, la reducción de la contaminación y la preservación del medio ambiente para las generaciones futuras.
+            </p>
+          </article>
+        </section>
+
+        {/* Recompensas */}
+        <section id="rewards" className={styles.rewards}>
+          <article>
+            <h2 className={styles.heading}>Recompensas</h2>
+            <p className={styles.paragraph}>
+              Desde cupones de descuentos hasta productos exclusivos, nuestras recompensas son una forma de agradecer 
+              a nuestros usuarios por su compromiso con el reciclaje. ¡Descubre las recompensas que puedes ganar y únete 
+              al movimiento de reciclaje hoy mismo!
+            </p>
+          </article>
+        </section>        
+
+        {/* Cómo se ganan los puntos */}
+        <section id="earning-points" className={styles.earningPoints}>
+          <article>
+            <h2 className={styles.heading}>Cómo se ganan los puntos</h2>
+            <p className={styles.paragraph}>
+              Ganar puntos es fácil con nuestra aplicación. Simplemente regístrate, registra tus materiales reciclados, participa en eventos 
+              de limpieza y más. Cuantos más puntos ganes, más recompensas podrás desbloquear. ¡Empieza a ganar puntos ahora!
+            </p>
+          </article>
+        </section>
+
+        {/*Zonas de reciclaje*/}
+        <section id="recyclingPoints" className={styles.recyclingPoints}>
+            <article>
+                <h2 className={styles.heading}>Puntos de Reciclaje</h2>
+                <p className={styles.paragraph}>Encuentra puntos de reciclaje cercanos a ti y haz tu parte para proteger el medio ambiente. Nuestra aplicación te muestra los puntos de reciclaje disponibles en tu área, junto con detalles sobre qué materiales se aceptan y los horarios de funcionamiento</p>        
+            </article>
+            <div>
+                <Image src="/assets/points.webp" alt="recycling-points" width={400} height={400}/>   
+            </div>
+        </section>
+        {/*Colaboraciones y alianzas*/}
+        <section id="partnerships" className={styles.partnerships}>
+            <article>
+                <h2 className={styles.heading}>Colaboraciones y Alianzas</h2>
+                <p className={styles.paragraph}>A través de estas alianzas, podemos ofrecer a nuestros usuarios descuentos especiales, eventos exclusivos y más. Únete a nosotros en nuestra misión de hacer del mundo un lugar más limpio y verde</p>                
+            </article>
+            <div>
+                <a href="#"><button className="hover:bg-[--color-hover]">Únete a la misión</button></a>                
+            </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      <Footer/>
+    </>
   );
 }
