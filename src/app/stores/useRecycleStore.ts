@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { create } from 'zustand';
 
 type LocationType = {
@@ -16,6 +17,22 @@ interface RecycleStore {
   setSelectedLocation: (location: LocationType | null) => void;
 }
 
+=======
+import { create } from "zustand";
+
+// Definir los tipos para los materiales y la ubicación
+type Material = { name: string; icon: JSX.Element };  // El tipo de Material ahora es un objeto
+type Location = { name: string; address: string } | null;
+
+interface RecycleStore {
+  selectedMaterials: Material[];
+  selectedLocation: Location;
+  setSelectedMaterials: (materials: Material[]) => void;
+  setSelectedLocation: (location: Location) => void;
+}
+
+// Crear el store con los tipos definidos
+>>>>>>> develop
 const useRecycleStore = create<RecycleStore>((set) => ({
   selectedMaterials: [],
   selectedLocation: null,
@@ -23,4 +40,8 @@ const useRecycleStore = create<RecycleStore>((set) => ({
   setSelectedLocation: (location) => set({ selectedLocation: location }),
 }));
 
+<<<<<<< HEAD
 export default useRecycleStore;
+=======
+export default useRecycleStore;
+>>>>>>> develop
