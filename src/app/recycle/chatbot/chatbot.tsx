@@ -7,14 +7,15 @@ import { useState } from 'react';
 interface ChatComponentProps {
     onClose: () => void;
 }
-type setResponseType = {
-    text: string;
-    type: string;
-  };
 
-const ChatComponent = ({ onClose }: ChatComponentProps) => {
+type Response = {
+    text: string;
+    type: 'user' | 'bot';
+};
+
+const ChatComponent: React.FC<ChatComponentProps> = ({ onClose }) => {
   const [question, setQuestion] = useState('');
-  const [responses, setResponses] = useState<setResponseType[]>([]);
+  const [responses, setResponses] = useState<Response[]>([]);
   const [loading, setLoading] = useState(false);
   const [showPredefinedQuestions, setShowPredefinedQuestions] = useState(true);
 
@@ -26,13 +27,11 @@ const ChatComponent = ({ onClose }: ChatComponentProps) => {
     '¿Cómo clasifico el papel?'
   ];
 
-
-
   const handleAsk = async (userQuestion: string) => {
     if (!userQuestion) return;
 
     setLoading(true);
-    setResponses((prev: setResponseType[]) => [...prev, { text: userQuestion, type: 'user' }]);
+    setResponses((prev) => [...prev, { text: userQuestion, type: 'user' }]);
 
     try {
       const res = await fetch('http://localhost:3002/api/chatbot/ask', { 
@@ -66,7 +65,7 @@ const ChatComponent = ({ onClose }: ChatComponentProps) => {
 
   return (
     <>
-      <div className={styles.overlay} onClick={onClose}></div> {/* Fondo semitransparente */}
+      <div className={styles.overlay} onClick={onClose}></div>
       <div className={styles.recycleContainer}>
         <h2 className="text-2xl mb-4">Greene Helper</h2>
         
@@ -84,7 +83,6 @@ const ChatComponent = ({ onClose }: ChatComponentProps) => {
           </div>
         </div>
 
-        {/* Mostrar preguntas predefinidas solo si no se ha escrito una pregunta */}
         {showPredefinedQuestions && (
           <div className={styles.predefinedQuestions}>
             {predefinedQuestions.map((predefinedQuestion, index) => (
@@ -105,7 +103,7 @@ const ChatComponent = ({ onClose }: ChatComponentProps) => {
           onChange={(e) => {
             setQuestion(e.target.value);
             if (e.target.value !== '') {
-              setShowPredefinedQuestions(false); // Ocultar preguntas predefinidas al escribir
+              setShowPredefinedQuestions(false);
             }
           }}
           placeholder="Escribe tu pregunta..."
@@ -119,4 +117,5 @@ const ChatComponent = ({ onClose }: ChatComponentProps) => {
     </>
   );
 };
+
 export default ChatComponent;

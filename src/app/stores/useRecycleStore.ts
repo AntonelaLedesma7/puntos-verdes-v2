@@ -1,11 +1,19 @@
 import { create } from 'zustand';
 
+type LocationType = {
+  value: string;
+  name: string;
+  address: string;
+  hours: string;
+  imageUrl: string;
+};
+
 interface RecycleStore {
   selectedMaterials: string[];
-  selectedLocation: string | null;
+  selectedLocation: LocationType | null;
 
   setSelectedMaterials: (materials: string[]) => void;
-  setSelectedLocation: (location: string | null) => void;
+  setSelectedLocation: (location: LocationType | null) => void;
 }
 
 const useRecycleStore = create<RecycleStore>((set) => ({
