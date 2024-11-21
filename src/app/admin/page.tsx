@@ -1,14 +1,11 @@
-'use client'
-
 'use client';
 
 import { useState, useEffect, FormEvent, ComponentType } from 'react';
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { Button, buttonVariants } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 
 import MetalIcon from '/public/icons/metal.svg';
 import GlassIcon from '/public/icons/glass.svg';
@@ -172,7 +169,9 @@ export default function AdminPage() {
 
   return (
     <div className='container mx-auto max-w-[600px] px-4 my-8 grid gap-4 text-white min-h-screen'>
-      <h1 className='mb-4 text-3xl font-bold text-center'>Administrador de puntos</h1>
+      <h1 className='mb-4 text-3xl font-bold text-center'>
+        Administrador de puntos
+      </h1>
 
       <form onSubmit={handleSearch} className='mt-6'>
         <h1 className='mb-4 text-1xl'>

@@ -5,15 +5,7 @@ import CoinsIcon from '/public/icons/coins.svg';
 import TicketIcon from '/public/icons/ticket.svg';
 import useRewardStore from '@/app/stores/useRewardStore';
 import Navbar from '@/components/navbar';
-
-interface Reward {
-  id: number;
-  discount: string;
-  category: string;
-  cost: number;
-  details: string;
-  expiration: string;
-}
+import type { Reward } from '@/types/interface-reward';
 
 export default function RewardsPage() {
   const router = useRouter();
