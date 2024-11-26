@@ -2,27 +2,30 @@ import { CookieValueTypes } from 'cookies-next';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface Reward {
-  discount: string;
-  category: string;
-  discountCode: string;
-  expiration: string;
-}
+type RedeemedCoupon = {
+  id: number;
+  discount: string | number;
+  category: string | number;
+  redeemedAt: string | number;
+  expiration: string | number;
+  cost: number;
+  discountCode: string | number;
+};
 
 interface PointsResponse {
   points: number;
 }
 
 interface RewardStore {
-  userId: CookieValueTypes | Promise<CookieValueTypes>
+  userId: CookieValueTypes | Promise<CookieValueTypes>;
   userPoints: number | null;
-  selectedReward: Reward | null;
-  redeemedRewards: Reward[];
+  selectedReward: RedeemedCoupon | null;
+  redeemedRewards: RedeemedCoupon[];
   getPoints: () => Promise<void>;
   setPoints: (points: number) => Promise<PointsResponse | null>;
   setUserId: (userId: CookieValueTypes | Promise<CookieValueTypes>) => void;
-  setSelectedReward: (reward: Reward | null) => void;
-  updateAfterRedemption: (newPoints: number, newReward: Reward) => void;
+  setSelectedReward: (reward: RedeemedCoupon | null) => void;
+  updateAfterRedemption: (newPoints: number, newReward: RedeemedCoupon) => void;
 }
 
 const useRewardStore = create<RewardStore>()(
@@ -34,7 +37,7 @@ const useRewardStore = create<RewardStore>()(
           return;
         }
         const response = await fetch(`/api/points/${userId}`);
-        console.log("Response points", response);
+        console.log('Response points', response);
         const data = await response.json();
         set({ userPoints: data });
       },
@@ -53,7 +56,7 @@ const useRewardStore = create<RewardStore>()(
           set({ userPoints: data });
           return data;
         } catch (error) {
-          console.log("Error al actualizar los puntos", error);
+          console.log('Error al actualizar los puntos', error);
           return null;
         }
       },
@@ -62,28 +65,32 @@ const useRewardStore = create<RewardStore>()(
       userPoints: null,
       selectedReward: null,
       redeemedRewards: [],
-      setSelectedReward: (reward: Reward | null) => set({ selectedReward: reward }),
-      updateAfterRedemption: (newPoints: number, newReward: Reward) => set((state) => ({
-        userPoints: newPoints,
-        redeemedRewards: [...state.redeemedRewards, newReward],
-      })),
+      setSelectedReward: (reward: RedeemedCoupon | null) =>
+        set({ selectedReward: reward }),
+      updateAfterRedemption: (newPoints: number, newReward: RedeemedCoupon) =>
+        set((state) => ({
+          userPoints: newPoints,
+          redeemedRewards: [...state.redeemedRewards, newReward],
+        })),
     }),
     {
-        name: 'reward-storage', // Nombre del almacenamiento persistente
-        storage: {
-          getItem: (name: string) => {
-            const item = localStorage.getItem(name);
-            return item ? Promise.resolve(JSON.parse(item)) : Promise.resolve(null);
-          },
-          setItem: (name: string, value: unknown) => {
-            // Aseguramos que `value` sea serializable
-            localStorage.setItem(name, JSON.stringify(value));
-            return Promise.resolve();
-          },
-          removeItem: (name: string) => {
-            localStorage.removeItem(name);
-            return Promise.resolve();
-          },
+      name: 'reward-storage', // Nombre del almacenamiento persistente
+      storage: {
+        getItem: (name: string) => {
+          const item = localStorage.getItem(name);
+          return item
+            ? Promise.resolve(JSON.parse(item))
+            : Promise.resolve(null);
+        },
+        setItem: (name: string, value: unknown) => {
+          // Aseguramos que `value` sea serializable
+          localStorage.setItem(name, JSON.stringify(value));
+          return Promise.resolve();
+        },
+        removeItem: (name: string) => {
+          localStorage.removeItem(name);
+          return Promise.resolve();
+        },
       }, // Usamos una implementación personalizada para que sea compatible con PersistStorage
     }
   )

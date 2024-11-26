@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import styles from '@/styles/recycle-page.module.css';
 import Navbar from '@/components/navbar';
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import useRecycleStore from "@/app/stores/useRecycleStore";
+import Link from 'next/link';
+import { buttonVariants } from '@/components/ui/button';
+import useRecycleStore from '@/app/stores/useRecycleStore';
 import ChatComponent from './chatbot/chatbot';
 import Chaticon from '/public/icons/chat.svg';
 
@@ -18,7 +18,7 @@ import PlasticIcon from '/public/icons/plastic.svg';
 
 type Material = {
   name: string;
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };
 
 const materialsList: Material[] = [
@@ -39,7 +39,9 @@ export default function Recycle() {
 
   const handleSelectMaterial = (material: Material) => {
     if (selectedMaterials.includes(material)) {
-      setSelectedMaterials(selectedMaterials.filter((item) => item !== material));
+      setSelectedMaterials(
+        selectedMaterials.filter((item) => item !== material)
+      );
     } else {
       setSelectedMaterials([...selectedMaterials, material]);
     }
@@ -48,7 +50,7 @@ export default function Recycle() {
   return (
     <div className="grid gap-6 text-center ">
       <div>
-        <h2 className='mb-8 text-3xl font-bold'>Reciclar</h2>
+        <h2 className="mb-8 text-3xl font-bold">Reciclar</h2>
         <p>Selecciona los materiales que vas a reciclar</p>
       </div>
       <div className={styles.materialsList}>
@@ -71,7 +73,16 @@ export default function Recycle() {
         })}
       </div>
       <div>
-        <Link href="recycle/locations" className={buttonVariants({ variant: "default", size: "lg", className: "font-bold" })}>Siguiente</Link>
+        <Link
+          href="recycle/locations"
+          className={buttonVariants({
+            variant: 'default',
+            size: 'lg',
+            className: 'font-bold',
+          })}
+        >
+          Siguiente
+        </Link>
       </div>
       <div>
         <button className={styles.floatingIcon} onClick={toggleChat}>

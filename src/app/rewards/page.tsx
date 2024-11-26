@@ -14,6 +14,10 @@ interface Reward {
   details: string;
   expiration: string;
 }
+interface RedeemedCoupon extends Reward {
+  redeemedAt: string;
+  discountCode: string;
+}
 
 export default function RewardsPage() {
   const router = useRouter();
@@ -100,22 +104,27 @@ export default function RewardsPage() {
   );
 
   const handleRewardClick = (reward: Reward) => {
-    setSelectedReward(reward);
+    const redeemedCoupon: RedeemedCoupon = {
+      ...reward,
+      redeemedAt: new Date().toISOString(), // You need to provide these fields
+      discountCode: 'YOUR_DISCOUNT_CODE',
+    };
+    setSelectedReward(redeemedCoupon);
     router.push(`/rewards/${reward.id}`);
   };
 
   return (
-    <div className='container mx-auto max-w-[600px] px-4 grid gap-[20px] justify-center'>
-      <div className='mb-8 text-3xl text-center'>
-        <h1 className='font-bold'>Recompensas</h1>
+    <div className="container mx-auto max-w-[600px] px-4 grid gap-[20px] justify-center">
+      <div className="mb-8 text-3xl text-center">
+        <h1 className="font-bold">Recompensas</h1>
       </div>
-      <div className='flex flex-col items-center justify-between p-4 rounded-lg'>
-        <h4 className='text-xl font-semibold text-center'>
+      <div className="flex flex-col items-center justify-between p-4 rounded-lg">
+        <h4 className="text-xl font-semibold text-center">
           Puntos disponibles
         </h4>
-        <div className='flex items-center'>
-          <CoinsIcon className='w-6 h-6 text-[--color-primary]' />
-          <p className='ml-2 text-3xl font-bold'>{userPoints}</p>
+        <div className="flex items-center">
+          <CoinsIcon className="w-6 h-6 text-[--color-primary]" />
+          <p className="ml-2 text-3xl font-bold">{userPoints}</p>
           {/* <div className="container px-4 py-8 mx-auto">
       <h1 className="mb-8 text-3xl font-bold text-center">Recompensas</h1>
       
@@ -127,32 +136,32 @@ export default function RewardsPage() {
         </div>
       </div>
 
-      <div className='mb-8'>
-        <label htmlFor='search' className='block mb-2 text-lg font-medium'>
+      <div className="mb-8">
+        <label htmlFor="search" className="block mb-2 text-lg font-medium">
           Buscar recompensas
         </label>
         <input
-          id='search'
-          type='text'
-          placeholder='Buscar por categoría...'
-          className='w-full p-3 text-gray-900 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-100'
+          id="search"
+          type="text"
+          placeholder="Buscar por categoría..."
+          className="w-full p-3 text-gray-900 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-100"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
-      <div className='grid grid-cols-1 gap-6 sm:grid-cols-2'>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {filteredRewards.map((reward) => (
           <div
             key={reward.id}
             onClick={() => handleRewardClick(reward)}
-            className='p-6 transition-all bg-[--color-secundary] rounded-lg hover:bg-gray-700 flex flex-col items-center cursor-pointer'
+            className="p-6 transition-all bg-[--color-secundary] rounded-lg hover:bg-gray-700 flex flex-col items-center cursor-pointer"
           >
-            <div className='mb-4'>
-              <TicketIcon className='w-16 h-16 text-[--color-primary]' />
+            <div className="mb-4">
+              <TicketIcon className="w-16 h-16 text-[--color-primary]" />
             </div>
-            <p className='mb-2 text-2xl font-bold'>{reward.discount}</p>
-            <p className='text-lg text-center'>{reward.category}</p>
+            <p className="mb-2 text-2xl font-bold">{reward.discount}</p>
+            <p className="text-lg text-center">{reward.category}</p>
           </div>
         ))}
       </div>

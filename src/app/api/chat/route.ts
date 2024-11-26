@@ -1,17 +1,16 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { NextApiRequest, NextApiResponse } from 'next';
 import { authOptions } from '../auth/[...nextauth]/options';
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request) {
   try {
-    const session = await getServerSession(req, res, { ...authOptions });
+    const session = await getServerSession(authOptions);
 
     if (!session) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    const { question } = req.body;
+    const { question } = await req.json();
 
     const response = await fetch('http://localhost:3002/api/chatbot/ask', {
       method: 'POST',

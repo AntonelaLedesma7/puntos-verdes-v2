@@ -1,8 +1,15 @@
 import { create } from 'zustand';
 
-// Definir los tipos para los materiales y la ubicación
-type Material = { name: string; icon: JSX.Element }; // El tipo de Material ahora es un objeto
-type Location = { name: string; address: string } | null;
+
+type Material = {
+  name: string;
+  icon: React.ElementType | React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}; 
+type Location = {
+  name: string;
+  address: string;
+  hours: string;
+} | null;
 
 interface RecycleStore {
   selectedMaterials: Material[];
