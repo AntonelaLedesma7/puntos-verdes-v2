@@ -9,30 +9,8 @@ import { buttonVariants } from "@/components/ui/button";
 import useRecycleStore from "@/app/stores/useRecycleStore";
 import { useState } from "react";
 
-type Material = {
-  name: string;
-  icon: React.ReactNode;
-};
-
-type Location = {
-  name: string;
-  address: string;
-  hours: string;
-};
-
-interface SessionUser {
-  id?: string;
-  role?: string;
-  token?: string;
-  userId?: string; // Add the userId property
-}
-
-interface Session {
-  user?: SessionUser;
-}
-
 function ConfirmationPageContent() {
-  const { data: session } = useSession<Session>();
+  const { data: session } = useSession();
   const router = useRouter();
   const { selectedMaterials, selectedLocation } = useRecycleStore();
   const [message, setMessage] = useState<string | null>(null);
@@ -54,7 +32,7 @@ function ConfirmationPageContent() {
       const data = {
         materials: selectedMaterials,
         location: selectedLocation,
-        userID: session.user.userId, // Now TypeScript knows this might be undefined
+        userID: session.user.userId,
       };
 
       try {

@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-
-
-import Navbar from "@/components/navbar";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-
-export default function Profile() {
-=======
 import Navbar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -14,7 +5,6 @@ import { FC } from "react";
 
 // Declaramos que la función Profile devuelve un JSX.Element
 const Profile: FC = (): JSX.Element => {
->>>>>>> develop
   return (
     <div className="container mx-auto max-w-[600px] px-4 my-8 text-white grid gap-5">
       <h1 className="mb-4 text-3xl font-bold text-center">Perfil del Usuario</h1>
@@ -54,19 +44,6 @@ const Profile: FC = (): JSX.Element => {
         <h2 className="text-xl font-semibold">Acerca de</h2>
         <p className="mt-2">Conoce más sobre la aplicación y el equipo.</p>
       </Link>
-
-<<<<<<< HEAD
-        {/* Botón para cerrar sesión */}
-        <Link href="/">
-          <Button className="w-full bg-red-600 hover:bg-[--color-secundary] rounded-lg">
-            Cerrar Sesión
-          </Button>
-        </Link>
-        <Navbar />
-    </div>
-  );
-}
-=======
       {/* Botón para cerrar sesión */}
       <Link href="/">
         <Button className="w-full bg-red-600 hover:bg-[--color-secundary] rounded-lg">
@@ -79,4 +56,3 @@ const Profile: FC = (): JSX.Element => {
 };
 
 export default Profile;
->>>>>>> develop

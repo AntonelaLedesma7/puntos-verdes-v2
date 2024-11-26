@@ -1,4 +1,5 @@
 import styles from '../styles/navbar.module.css';
+import Link from 'next/link';
 
 // Importamos los iconos SVG
 import HomeIcon from '/public/icons/home.svg';
@@ -11,24 +12,24 @@ const Navbar = () => {
     <nav className={styles.nav}>
       <ul className={styles.navList}>
         <li className={styles.navItem}>
-          <a href="/dashboard" className={styles.navLink}>
+          <Link href="/dashboard" className={styles.navLink}>
             <HomeIcon className={styles.navIcon} />
-          </a>
+          </Link>
         </li>
         <li className={styles.navItem}>
-          <a href="/rewards" className={styles.navLink}>
+          <Link href="/rewards" className={styles.navLink}>
             <CoinsIcon className={styles.navIcon} />
-          </a>
+          </Link>
         </li>
         <li className={styles.navItem}>
-          <a href="/map" className={styles.navLink}>
+          <Link href="/map" className={styles.navLink}>
             <MapIcon className={styles.navIcon} />
-          </a>
+          </Link>
         </li>
         <li className={styles.navItem}>
-          <a href="/recycle" className={styles.navLink}>
+          <Link href="/recycle" className={styles.navLink}>
             <RecycleIcon className={styles.navIcon} />
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

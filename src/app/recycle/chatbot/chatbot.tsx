@@ -1,6 +1,4 @@
 'use client';
-
-import { ChatbotRoute } from '@/app/api/chat/route';
 import styles from '@/styles/chatbot.module.css'; 
 import { useState } from 'react';
 

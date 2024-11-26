@@ -1,15 +1,8 @@
-import { Button } from '@/components/ui/button'; // Si estás usando botones de shadcn UI
 import MetalIcon from '/public/icons/metal.svg';
 import GlassIcon from '/public/icons/glass.svg';
 import PaperIcon from '/public/icons/paper.svg';
-import BoxIcon from '/public/icons/box.svg';
 import PlasticIcon from '/public/icons/plastic.svg';
 import Navbar from '@/components/navbar';
-
-// Definición de los props para los iconos, por si se requieren tipos específicos
-interface IconProps {
-  className?: string;
-}
 
 export default function ManualDeReciclaje(): JSX.Element {
   return (

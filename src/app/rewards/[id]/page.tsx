@@ -8,22 +8,17 @@ import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import TicketIcon from '/public/icons/ticket.svg';
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
 
 function generateRandomCode() {
   return Math.random().toString(36).substring(2, 10).toUpperCase();
 }
 
-export default function RewardDetails({ params }) {
+export default function RewardDetails() {
   const router = useRouter();
-  const { data: session } = useSession();
-  const userId = session?.user?.id;
 
   const {
     selectedReward,
-    redeemReward,
     userPoints,
-    setSelectedReward,
     updateAfterRedemption,
     setPoints,
   } = useRewardStore();

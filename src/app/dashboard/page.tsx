@@ -1,3 +1,4 @@
+'use client'
 import Navbar from '@/components/navbar';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
