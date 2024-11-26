@@ -38,12 +38,10 @@ function LoginPage() {
     if (res?.error) {
       setError(res.error);
     } else {
-      // Al obtener la sesión, extraemos el rol
       const userRole = session?.user.role || 'user';
       const userId = getCookie('userId');
       setUserId(userId);
 
-      // Redirigir según el rol del usuario
       if (userRole === 'admin') {
         router.push('/admin');
       } else {
