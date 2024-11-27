@@ -2,7 +2,7 @@
 
 import { signIn, useSession, SessionProvider } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getCookie } from 'cookies-next';
 import useRewardStore from '@/app/stores/useRewardStore';
@@ -17,14 +17,20 @@ function LoginPage() {
   const { setUserId } = useRewardStore();
   const { data: session, status } = useSession();
 
-  if (status === 'authenticated') {
-    const userRole = session?.user.role || 'user';
-    if (userRole === 'admin') {
-      router.push('/admin');
-    } else {
-      router.push('/dashboard');
+  // Este useEffect se ejecuta cada vez que la sesión cambia
+  useEffect(() => {
+    if (status === 'authenticated') {
+      const userRole = session?.user.role || 'user';
+      const userId = getCookie('userId');
+      setUserId(userId);
+
+      if (userRole === 'admin') {
+        router.push('/admin');
+      } else {
+        router.push('/dashboard');
+      }
     }
-  }
+  }, [session, status, router, setUserId]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,16 +43,6 @@ function LoginPage() {
 
     if (res?.error) {
       setError(res.error);
-    } else {
-      const userRole = session?.user.role || 'user';
-      const userId = getCookie('userId');
-      setUserId(userId);
-
-      if (userRole === 'admin') {
-        router.push('/admin');
-      } else {
-        router.push('/dashboard');
-      }
     }
   };
 
