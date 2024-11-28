@@ -1,7 +1,7 @@
-import MetalIcon from '/public/icons/metal.svg';
-import GlassIcon from '/public/icons/glass.svg';
-import PaperIcon from '/public/icons/paper.svg';
-import PlasticIcon from '/public/icons/plastic.svg';
+import MetalIcon from '@/icons/metal.svg';
+import GlassIcon from '@/icons/glass.svg';
+import PaperIcon from '@/icons/paper.svg';
+import PlasticIcon from '@/icons/plastic.svg';
 import Navbar from '@/components/navbar';
 
 export default function ManualDeReciclaje(): JSX.Element {

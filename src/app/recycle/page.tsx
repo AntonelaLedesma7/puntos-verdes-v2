@@ -7,14 +7,14 @@ import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import useRecycleStore from '@/app/stores/useRecycleStore';
 import ChatComponent from './chatbot/chatbot';
-import Chaticon from '/public/icons/chat.svg';
+import Chaticon from '@/icons/chat.svg';
 
 // Iconos
-import MetalIcon from '/public/icons/metal.svg';
-import GlassIcon from '/public/icons/glass.svg';
-import PaperIcon from '/public/icons/paper.svg';
-import BoxIcon from '/public/icons/box.svg';
-import PlasticIcon from '/public/icons/plastic.svg';
+import MetalIcon from '@/icons/metal.svg';
+import GlassIcon from '@/icons/glass.svg';
+import PaperIcon from '@/icons/paper.svg';
+import BoxIcon from '@/icons/box.svg';
+import PlasticIcon from '@/icons/plastic.svg';
 
 type Material = {
   name: string;

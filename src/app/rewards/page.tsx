@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import CoinsIcon from '/public/icons/coins.svg';
-import TicketIcon from '/public/icons/ticket.svg';
+import CoinsIcon from '@/icons/coins.svg';
+import TicketIcon from '@/icons/ticket.svg';
 import useRewardStore from '@/app/stores/useRewardStore';
 import Navbar from '@/components/navbar';
 
