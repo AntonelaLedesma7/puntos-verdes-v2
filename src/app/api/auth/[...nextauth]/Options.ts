@@ -10,8 +10,6 @@ declare module 'next-auth/jwt' {
   }
 }
 
-console.log("hola")
-
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -31,10 +29,8 @@ export const authOptions: NextAuthOptions = {
         );
 
         const user = await res.json();
-        console.log(user); // Loguear la respuesta para debug
-
         if (res.ok && user) {
-          return user; // Si la respuesta es correcta, devolver el objeto usuario
+          return { id: user.userId, role: user.role, token: user.token };
         } else {
           throw new Error(user.error || 'Error al iniciar sesión');
         }
@@ -42,30 +38,27 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: '/login', // Página de inicio de sesión
+    signIn: '/login',
   },
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        // Asegúrate de que los valores existen antes de asignarlos
-        token.id = user.userId || token.id;
+        token.id = user.id || token.id;
         token.role = user.role || token.role;
         token.token = user.token || token.token;
       }
-
-      // Guardar el id y token en las cookies
       (await cookies()).set('userId', JSON.stringify(token.id), {
         path: '/',
-        httpOnly: true, // Asegura que no pueda ser accedida por JavaScript
-        secure: process.env.NODE_ENV === 'production', // Solo en producción
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
       });
 
       (await cookies()).set('token', JSON.stringify(token.token), {
         path: '/',
-        httpOnly: true, // Asegura que no pueda ser accedida por JavaScript
-        secure: process.env.NODE_ENV === 'production', // Solo en producción
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
       });
 
       return token;

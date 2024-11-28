@@ -6,6 +6,7 @@ import Navbar from "@/components/navbar-landing";
 import Footer from '@/components/footer';
 
 export default function RegisterPage() {
+  console.log("Antes del form")
   const [formData, setFormData] = useState({
     name: '',
     username: '',
@@ -15,7 +16,7 @@ export default function RegisterPage() {
   });
   const [message, setMessage] = useState('');
   const router = useRouter();
-
+  console.log("Despues del form")
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
@@ -30,17 +31,19 @@ export default function RegisterPage() {
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
+      console.log("Antes del fetch")
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
+      console.log(`Despues del fetch ${res}`);
 
       const data = await res.json();
       console.log('Respuesta del servidor:', data); // Verifica la respuesta
-
       if (!res.ok) {
         throw new Error(data.message || 'Error al registrar el usuario');
+        
       }
 
       setMessage('Registro exitoso. Redirigiendo a la página de inicio de sesión...');
@@ -48,6 +51,7 @@ export default function RegisterPage() {
         router.push('/auth/login');
       }, 2000);
     } catch (error) {
+        console.log(`Catch ${error}`);
         console.error('Error en el registro:', error);
         if (error instanceof Error) {
           setMessage(error.message);

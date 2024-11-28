@@ -62,6 +62,7 @@ function LoginPage() {
             <label className="block mb-2 text-white">Correo electrónico</label>
             <input
               type="email"
+              name='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -73,6 +74,7 @@ function LoginPage() {
             <label className="block mb-2 text-white">Contraseña</label>
             <input
               type="password"
+              name='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
