@@ -22,7 +22,7 @@ const POINTS_PER_KILO: Record<string, number> = {
   plastic: 12,
 };
 
-export default function AdminPage() {
+export default function Admin() {
   const [searchQuery, setSearchQuery] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userId, setUserId] = useState(null);
@@ -153,119 +153,120 @@ export default function AdminPage() {
     }
   };
 
-type MaterialKey = keyof typeof weights;
+  type MaterialKey = keyof typeof weights;
 
-type typeMaterials = {
-  icon: ComponentType<{ className?: string }>;
-  label: string;
-  key: MaterialKey;
-};
+  type typeMaterials = {
+    icon: ComponentType<{ className?: string }>;
+    label: string;
+    key: MaterialKey;
+  };
 
-const materials: typeMaterials[] = [
-  { icon: BoxIcon, label: 'Cartón', key: 'cardboard' },
-  { icon: GlassIcon, label: 'Vidrio', key: 'glass' },
-  { icon: PaperIcon, label: 'Papel', key: 'paper' },
-  { icon: MetalIcon, label: 'Metal', key: 'metal' },
-  { icon: PlasticIcon, label: 'Plástico', key: 'plastic' },
-];
-
+  const materials: typeMaterials[] = [
+    { icon: BoxIcon, label: 'Cartón', key: 'cardboard' },
+    { icon: GlassIcon, label: 'Vidrio', key: 'glass' },
+    { icon: PaperIcon, label: 'Papel', key: 'paper' },
+    { icon: MetalIcon, label: 'Metal', key: 'metal' },
+    { icon: PlasticIcon, label: 'Plástico', key: 'plastic' },
+  ];
 
   return (
-    <div className="container mx-auto max-w-[600px] px-4 my-8 grid gap-4 text-white min-h-screen">
-      <h1 className="mb-4 text-3xl font-bold text-center">
-        Administrador de puntos
-      </h1>
-
-      <form onSubmit={handleSearch} className="mt-6">
-        <h1 className="mb-4 text-1xl">
-          Ingrese el correo del usuario para ingresar puntos
+    <>
+      <div className="container mx-auto max-w-[600px] px-4 my-8 grid gap-4 text-white min-h-screen">
+        <h1 className="mb-4 text-3xl font-bold text-center">
+          Administrador de puntos
         </h1>
-        <div className="flex gap-2">
-          <Input
-            type="text"
-            placeholder="Buscar usuario..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-grow bg-[--color-secundary] text-white rounded-lg"
-          />
-          <Button type="submit" className="font-bold rounded-lg">
-            Buscar
-          </Button>
-        </div>
-      </form>
 
-      {message && <p className="mb-4 text-yellow-400">{message}</p>}
-      {userEmail && <p className="mb-4">Usuario seleccionado: {userEmail}</p>}
+        <form onSubmit={handleSearch} className="mt-6">
+          <h1 className="mb-4 text-1xl">
+            Ingrese el correo del usuario para ingresar puntos
+          </h1>
+          <div className="flex gap-2">
+            <Input
+              type="text"
+              placeholder="Buscar usuario..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-grow bg-[--color-secundary] text-white rounded-lg"
+            />
+            <Button type="submit" className="font-bold rounded-lg">
+              Buscar
+            </Button>
+          </div>
+        </form>
 
-      <div className="grid mt-8 gap-9">
-        {materials.map((material, index: number) => (
-          <div key={index} className="flex justify-between">
-            <material.icon className="w-10 h-10 text-[--color-primary]" />
-            <label htmlFor={`option-${index + 1}`} className="text-lg">
-              {material.label}
-            </label>
-            <div className="flex flex-col items-end">
-              <div className="flex items-center">
-                <Input
-                  type="text"
-                  id={`option-${index + 1}`}
-                  placeholder="Peso (kg)"
-                  className="w-[120px] bg-[--color-secundary] text-white rounded-lg pb-2 mr-5"
-                  value={weights[material.key]}
-                  onChange={(e) =>
-                    handleWeightChange(material.key, e.target.value)
-                  }
-                />
-                <span className="text-sm">
-                  ({POINTS_PER_KILO[material.key]} pts/kg)
+        {message && <p className="mb-4 text-yellow-400">{message}</p>}
+        {userEmail && <p className="mb-4">Usuario seleccionado: {userEmail}</p>}
+
+        <div className="grid mt-8 gap-9">
+          {materials.map((material, index: number) => (
+            <div key={index} className="flex justify-between">
+              <material.icon className="w-10 h-10 text-[--color-primary]" />
+              <label htmlFor={`option-${index + 1}`} className="text-lg">
+                {material.label}
+              </label>
+              <div className="flex flex-col items-end">
+                <div className="flex items-center">
+                  <Input
+                    type="text"
+                    id={`option-${index + 1}`}
+                    placeholder="Peso (kg)"
+                    className="w-[120px] bg-[--color-secundary] text-white rounded-lg pb-2 mr-5"
+                    value={weights[material.key]}
+                    onChange={(e) =>
+                      handleWeightChange(material.key, e.target.value)
+                    }
+                  />
+                  <span className="text-sm">
+                    ({POINTS_PER_KILO[material.key]} pts/kg)
+                  </span>
+                </div>
+                <span className="mt-3 text-xs text-gray-400">
+                  {weights[material.key]
+                    ? `${(parseFloat(weights[material.key]) * 1000).toFixed(
+                        0
+                      )} gramos`
+                    : ''}
                 </span>
               </div>
-              <span className="mt-3 text-xs text-gray-400">
-                {weights[material.key]
-                  ? `${(parseFloat(weights[material.key]) * 1000).toFixed(
-                      0
-                    )} gramos`
-                  : ''}
-              </span>
             </div>
-          </div>
-        ))}
+          ))}
 
-        <Card className="mt-6 bg-[--color-secundary] text-white rounded-lg">
-          <CardHeader>
-            <CardTitle className="text-lg text-center">
-              Puntos que recibirá
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-center">
-              {calculatePoints()} puntos
-            </p>
-          </CardContent>
-        </Card>
+          <Card className="mt-6 bg-[--color-secundary] text-white rounded-lg">
+            <CardHeader>
+              <CardTitle className="text-lg text-center">
+                Puntos que recibirá
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-2xl font-bold text-center">
+                {calculatePoints()} puntos
+              </p>
+            </CardContent>
+          </Card>
 
-        <Button
-          className={buttonVariants({
-            variant: 'default',
-            size: 'lg',
-            className: 'font-bold',
-          })}
-          onClick={handleSubmit}
-        >
-          Enviar
-        </Button>
+          <Button
+            className={buttonVariants({
+              variant: 'default',
+              size: 'lg',
+              className: 'font-bold',
+            })}
+            onClick={handleSubmit}
+          >
+            Enviar
+          </Button>
 
-        <Link
-          href="../"
-          className={buttonVariants({
-            variant: 'default',
-            size: 'lg',
-            className: 'font-bold bg-red-600 mt-8',
-          })}
-        >
-          Cerrar sesión
-        </Link>
+          <Link
+            href="../"
+            className={buttonVariants({
+              variant: 'default',
+              size: 'lg',
+              className: 'font-bold bg-red-600 mt-8',
+            })}
+          >
+            Cerrar sesión
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

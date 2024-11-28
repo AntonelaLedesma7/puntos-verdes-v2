@@ -5,6 +5,10 @@ const MapComponent = dynamic(() => import('@/components/MapComponent'), {
   ssr: false,
 });
 
-export default function MapPage() {
-  return <MapComponent />;
+export default function Map() {
+  return (
+    <>
+      <MapComponent />
+    </>
+  );
 }
