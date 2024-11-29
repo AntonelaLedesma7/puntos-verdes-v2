@@ -16,6 +16,7 @@ function LoginPage() {
   const router = useRouter();
   const { setUserId } = useRewardStore();
   const { data: session, status } = useSession();
+  
 
   // Este useEffect se ejecuta cada vez que la sesión cambia
   useEffect(() => {
@@ -36,7 +37,6 @@ function LoginPage() {
     event.preventDefault();
 
     const res = await signIn('credentials', {
-      redirect: false,
       email,
       password,
     });
@@ -61,6 +61,8 @@ function LoginPage() {
           <div className="mb-4">
             <label className="block mb-2 text-white">Correo electrónico</label>
             <input
+              id="email"
+              key={"email"}
               type="email"
               name="email"
               value={email}
@@ -73,6 +75,7 @@ function LoginPage() {
           <div className="mb-6">
             <label className="block mb-2 text-white">Contraseña</label>
             <input
+              id="password"
               type="password"
               name="password"
               value={password}
@@ -82,6 +85,7 @@ function LoginPage() {
             />
           </div>
           <button
+            id="submit-button"
             type="submit"
             className="w-full bg-[--color-primary] py-3 font-bold text-black transition duration-200 rounded-full hover:bg-[--color-hover]"
           >

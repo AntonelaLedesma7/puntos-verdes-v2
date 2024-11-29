@@ -1,10 +1,16 @@
+'use client'
+
 import Navbar from '@/components/navbar';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { FC } from 'react';
+import { signOut } from 'next-auth/react';
 
-// Declaramos que la función Profile devuelve un JSX.Element
 const Profile: FC = (): JSX.Element => {
+  const handleLogout = async () => {
+    signOut({ callbackUrl: '/' });
+  };
+
   return (
     <>
       <div className="container mx-auto max-w-[600px] px-4 my-8 text-white grid gap-5">
@@ -66,11 +72,12 @@ const Profile: FC = (): JSX.Element => {
           <p className="mt-2">Conoce más sobre la aplicación y el equipo.</p>
         </Link>
         {/* Botón para cerrar sesión */}
-        <Link href="/">
-          <Button className="w-full bg-red-600 hover:bg-[--color-secundary] rounded-lg">
-            Cerrar Sesión
-          </Button>
-        </Link>
+        <Button
+          className="w-full bg-red-600 hover:bg-[--color-secundary] rounded-lg"
+          onClick={handleLogout}
+        >
+          Cerrar Sesión
+        </Button>
         <Navbar />
       </div>
     </>

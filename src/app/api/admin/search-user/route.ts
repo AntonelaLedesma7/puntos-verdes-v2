@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   const { email } = await req.json()
 
   try {
-    const response = await fetch(`${process.env.BACKEND_API_URL}/admin/search-user`, {
+    const response = await fetch(`${process.env.BACKEND_API_URL}/api/admin/search-user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     }
 
     const response = await fetch(
-      `${process.env.BACKEND_API_URL}/confirmation`,
+      `${process.env.BACKEND_API_URL}/api/confirmation`,
       {
         method: 'POST',
         headers: fetchHeaders,

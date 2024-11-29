@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   const { userId, points, weights } = await req.json()
 
   try {
-    const response = await fetch(`${process.env.BACKEND_API_URL}/admin/add-points`, {
+    const response = await fetch(`${process.env.BACKEND_API_URL}/api/admin/add-points`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

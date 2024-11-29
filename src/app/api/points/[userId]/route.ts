@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_API_URL}/users/${userId}/points`,
+      `${process.env.BACKEND_API_URL}/api/users/${userId}/points`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export async function PUT(req: NextRequest) {
   try {
     const points = await req.json();
     const response = await fetch(
-      `${process.env.BACKEND_API_URL}/users/${userId}/points`,
+      `${process.env.BACKEND_API_URL}/api/users/${userId}/points`,
       {
         method: 'PUT',
         headers: {
